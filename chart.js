@@ -1,3 +1,3 @@
 function graphe() {
-    return 4+4;
+    return 4;
 }
