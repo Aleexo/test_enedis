@@ -1,4 +1,4 @@
-function createGraphFrom(cheminJson, getTypeNoeud, getTypeUse, getColorChoice, getNodeColor, getLinkColor, linkToolTip, nodeToolTip, needLabel, getRadiusFunction) {
+function createGraphFrom(cheminJson, options) {
 
     const tooltip = d3.select("body")
         .append("div")
@@ -13,12 +13,12 @@ function createGraphFrom(cheminJson, getTypeNoeud, getTypeUse, getColorChoice, g
 
         if (error) throw error;
 
-        const typeNoeud = getTypeNoeud(graph)
-        const typeUse = getTypeUse(graph)
-        const colorChoice = getColorChoice(typeNoeud, typeUse)
-        const nodeColor = getNodeColor(colorChoice)
-        const linkColor = getLinkColor(colorChoice)
-        const radius = getRadiusFunction(graph)
+        const typeNoeud = options.getTypeNoeud(graph)
+        const typeUse = options.getTypeUse(graph)
+        const colorChoice = options.getColorChoice(typeNoeud, typeUse)
+        const nodeColor = options.getNodeColor(colorChoice)
+        const linkColor = options.getLinkColor(colorChoice)
+        const radius = options.getRadiusFunction(graph)
 
         const simulation = d3.forceSimulation(graph.nodes) //Modify link distance/strength here
             .force("link", d3.forceLink().id(function(d) {
@@ -114,7 +114,7 @@ function createGraphFrom(cheminJson, getTypeNoeud, getTypeUse, getColorChoice, g
                 tooltip.transition()
                     .duration(300)
                     .style("opacity", .8);
-                tooltip.html(nodeToolTip(d))
+                tooltip.html(options.nodeToolTip(d))
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY + 10) + "px");
             })
@@ -239,7 +239,7 @@ function createGraphFrom(cheminJson, getTypeNoeud, getTypeUse, getColorChoice, g
             .style("fill", colorChoice)
             .style("font-size", 15);
 
-        if (needLabel) {
+        if (options.needLabel) {
             svg.selectAll("myLines")
                 .data(typeUse)
                 .enter()
