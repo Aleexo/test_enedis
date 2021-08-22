@@ -12,12 +12,12 @@ function createGraphFrom(cheminJson, options) {
     d3.json(`https://raw.githubusercontent.com/Aleexo/test_enedis/main/json/${cheminJson}`, function(error, graph) {
 
         if (error) throw error;
-        
+
         const typeNoeud = options.getTypeNoeud(graph)
         const typeUse = options.getTypeUse(graph)
         const colorn = options.colorn
         const colorl = options.colorl
-        const colorChoice = options.getColorChoice(typeNoeud, typeUse)
+        const colorChoice = options.getColorChoice(typeNoeud, typeUse, colorn, colorl)
         const nodeColor = options.getNodeColor(colorChoice)
         const linkColor = options.getLinkColor(colorChoice)
         const radius = options.getRadiusFunction(graph)
@@ -273,312 +273,312 @@ function createGraphFrom(cheminJson, options) {
 
 }
 
-function getPathAndTitle(fileName)  {
-        const splitName = fileName.substring(0, fileName.lastIndexOf(".")).split("_")
-        console.log(splitName)
+function getPathAndTitle(fileName) {
+    const splitName = fileName.substring(0, fileName.lastIndexOf(".")).split("_")
+    console.log(splitName)
 
-        const graphType = splitName[0]
-        const module = splitName[1]
+    const graphType = splitName[0]
+    const module = splitName[1]
 
-        switch (module) {
-            case "Overall":
-                document.getElementById("sous-titre").innerHTML = ""
-                var pathJson = `Overall/${nomFichierJson}`
-                break
-    
-            default:
-                document.getElementById("sous-titre").innerHTML = `Module : ${module}`
-                var pathJson = `ByModule/${module}/${nomFichierJson}`
-        }
-    
-        switch (graphType) {
-            case "dfGraph":
-                document.getElementById("titre").innerHTML = "Graphe de dépendances des Dataframes";
-                break
-    
-            case "stepGraph":
-                document.getElementById("titre").innerHTML = "Graphe de dépendances des Steps";
-                break
-    
-            case "stepAndDfGraph":
-                document.getElementById("titre").innerHTML = "Graphe de dépendances entre Steps et Dataframes";
-                break
-    
-            case "submoduleGraph":
-                document.getElementById("titre").innerHTML = "Graphe de dépendances des Sous-Modules";
-                break
-        }
+    switch (module) {
+        case "Overall":
+            document.getElementById("sous-titre").innerHTML = ""
+            var pathJson = `Overall/${nomFichierJson}`
+            break
 
-        return pathJson
+        default:
+            document.getElementById("sous-titre").innerHTML = `Module : ${module}`
+            var pathJson = `ByModule/${module}/${nomFichierJson}`
     }
+
+    switch (graphType) {
+        case "dfGraph":
+            document.getElementById("titre").innerHTML = "Graphe de dépendances des Dataframes";
+            break
+
+        case "stepGraph":
+            document.getElementById("titre").innerHTML = "Graphe de dépendances des Steps";
+            break
+
+        case "stepAndDfGraph":
+            document.getElementById("titre").innerHTML = "Graphe de dépendances entre Steps et Dataframes";
+            break
+
+        case "submoduleGraph":
+            document.getElementById("titre").innerHTML = "Graphe de dépendances des Sous-Modules";
+            break
+    }
+
+    return pathJson
+}
 
 function options(getTypeNoeud, getTypeUse, colorn, colorl, getColorChoice, getNodeColor, getLinkColor, linkToolTip, nodeToolTip, getRadiusFunction, needLabel) {
-        this.getTypeNoeud = getTypeNoeud
-        this.getTypeUse = getTypeUse
-        this.colorn = colorn
-        this.colorl = colorl
-        this.getColorChoice = getColorChoice
-        this.getNodeColor = getNodeColor
-        this.getLinkColor = getLinkColor
-        this.linkToolTip = linkToolTip
-        this.nodeToolTip = nodeToolTip
-        this.getRadiusFunction = getRadiusFunction
-        this.needLabel = needLabel
-    }
+    this.getTypeNoeud = getTypeNoeud
+    this.getTypeUse = getTypeUse
+    this.colorn = colorn
+    this.colorl = colorl
+    this.getColorChoice = getColorChoice
+    this.getNodeColor = getNodeColor
+    this.getLinkColor = getLinkColor
+    this.linkToolTip = linkToolTip
+    this.nodeToolTip = nodeToolTip
+    this.getRadiusFunction = getRadiusFunction
+    this.needLabel = needLabel
+}
 
 const dfGraphOptions = new options(
 
-        function getTypeNoeud(graph) {
-            const submodules = [];
-            for (let i = 0; i < graph.nodes.length; i++) {
-                submodules.push(graph.nodes[i].submodule)
-            };
+    function getTypeNoeud(graph) {
+        const submodules = [];
+        for (let i = 0; i < graph.nodes.length; i++) {
+            submodules.push(graph.nodes[i].submodule)
+        };
 
-            const typeNoeud = Array.from(new Set(submodules));
-            console.log(typeNoeud)
-            return typeNoeud
-        },
-        function getTypeUse(graph) {
+        const typeNoeud = Array.from(new Set(submodules));
+        console.log(typeNoeud)
+        return typeNoeud
+    },
+    function getTypeUse(graph) {
 
-        },
-    
-        d3.scaleOrdinal(d3.schemeCategory10),
-        
-        [],
+    },
 
-        function getColorChoice(typeNoeud, typeUse) {
-            return function(d) {
-                return colorn(typeNoeud.indexOf(d))
-            };
-        },
+    d3.scaleOrdinal(d3.schemeCategory10),
 
-        function getNodeColor(colorChoice) {
-            return function(d) {
-                return colorChoice(d.submodule)
-            };
-        },
+    [],
 
-        function getLinkColor() {
-            return function(d) {
-                return 'rgba(218, 145, 10, 0.686)'
-            };
-        },
+    function getColorChoice(typeNoeud, typeUse, colorn, colorl) {
+        return function(d) {
+            return colorn(typeNoeud.indexOf(d))
+        };
+    },
 
-        function linkToolTip(d) {
-            return "Source:" + d.source.id +
-                "<p/>Target:" + d.target.id
-        },
+    function getNodeColor(colorChoice) {
+        return function(d) {
+            return colorChoice(d.submodule)
+        };
+    },
 
-        function nodeToolTip(d) {
-            return "Name:" + d.id +
-                "<p/>Submodule:" + d.submodule
-        },
+    function getLinkColor() {
+        return function(d) {
+            return 'rgba(218, 145, 10, 0.686)'
+        };
+    },
 
-        function getRadiusFunction(graph) {
-            return function(d) {
-                return 8
-            }
+    function linkToolTip(d) {
+        return "Source:" + d.source.id +
+            "<p/>Target:" + d.target.id
+    },
 
-        },
+    function nodeToolTip(d) {
+        return "Name:" + d.id +
+            "<p/>Submodule:" + d.submodule
+    },
 
-        false)
+    function getRadiusFunction(graph) {
+        return function(d) {
+            return 8
+        }
 
-    const stepGraphOptions = new options(
+    },
 
-        function getTypeNoeud(graph) {
-            const submodules = [];
-            for (let i = 0; i < graph.nodes.length; i++) {
-                submodules.push(graph.nodes[i].submodule)
-            };
+    false)
 
-            const typeNoeud = Array.from(new Set(submodules));
-            console.log(typeNoeud)
-            return typeNoeud
-        },
+const stepGraphOptions = new options(
 
-        function getTypeUse(graph) {
+    function getTypeNoeud(graph) {
+        const submodules = [];
+        for (let i = 0; i < graph.nodes.length; i++) {
+            submodules.push(graph.nodes[i].submodule)
+        };
 
-        },
-        
-        d3.scaleOrdinal(d3.schemeCategory10),
-        
-        [],
+        const typeNoeud = Array.from(new Set(submodules));
+        console.log(typeNoeud)
+        return typeNoeud
+    },
 
-        function getColorChoice(typeNoeud, typeUse) {
-            return function(d) {
-                return colorn(typeNoeud.indexOf(d))
-            };
-        },
+    function getTypeUse(graph) {
 
-        function getNodeColor(colorChoice) {
-            return function(d) {
-                return colorChoice(d.submodule)
-            };
-        },
+    },
 
-        function getLinkColor() {
-            return function(d) {
-                return 'rgba(218, 145, 10, 0.686)'
-            };
-        },
+    d3.scaleOrdinal(d3.schemeCategory10),
 
-        function linkToolTip(d) {
-            return "Source:" + d.source.id +
-                "<p/>Target:" + d.target.id
-        },
+    [],
 
-        function nodeToolTip(d) {
-            return "Name:" + d.id +
-                "<p/>Submodule:" + d.submodule
-        },
+    function getColorChoice(typeNoeud, typeUse, colorn, colorl) {
+        return function(d) {
+            return colorn(typeNoeud.indexOf(d))
+        };
+    },
 
-        function getRadiusFunction(graph) {
-            return function(d) {
-                return 8
-            }
+    function getNodeColor(colorChoice) {
+        return function(d) {
+            return colorChoice(d.submodule)
+        };
+    },
 
-        },
+    function getLinkColor() {
+        return function(d) {
+            return 'rgba(218, 145, 10, 0.686)'
+        };
+    },
 
-        false
-    )
+    function linkToolTip(d) {
+        return "Source:" + d.source.id +
+            "<p/>Target:" + d.target.id
+    },
 
-    const stepAndDfGraphOptions = new options(
-        function getTypeNoeud(graph) {
-            return [
-                'FinalDataframeDescriptor',
-                'ImportDataframeDescriptor',
-                'WorkDataframeDescriptor',
-                'OutputDataframeDescriptor',
-                'Scala_class_Step',
-                'Scala_class_Check',
-                'Scala_class_from_makebusinessdataframes'
-            ];
-        },
+    function nodeToolTip(d) {
+        return "Name:" + d.id +
+            "<p/>Submodule:" + d.submodule
+    },
 
-        function getTypeUse(graph) {
-            return ['load', 'save'];
-        },
-        
-        ['Gold', 'SeaGreen', 'Navy', 'Crimson', 'Black', 'DarkGray', 'SaddleBrown'],
-        
-        d3.scaleOrdinal(["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec", "#f2f2f2"]),
+    function getRadiusFunction(graph) {
+        return function(d) {
+            return 8
+        }
 
-        function getColorChoice(typeNoeud, typeUse) {
-            return function(d) {
-                if (typeNoeud.includes(d)) {
-                    var color = colorn[typeNoeud.indexOf(d)]
-                } else if (typeUse.includes(d)) {
-                    var color = colorl(typeUse.indexOf(d))
-                } else {
-                    var color = 'black'
-                }
-                return color
-            }
-        },
+    },
 
-        function getNodeColor(colorChoice) {
-            return function(d) {
-                return colorChoice(d.group)
-            };
-        },
+    false
+)
 
-        function getLinkColor(colorChoice) {
-            return function(d) {
-                return colorChoice(d.use)
-            };
-        },
+const stepAndDfGraphOptions = new options(
+    function getTypeNoeud(graph) {
+        return [
+            'FinalDataframeDescriptor',
+            'ImportDataframeDescriptor',
+            'WorkDataframeDescriptor',
+            'OutputDataframeDescriptor',
+            'Scala_class_Step',
+            'Scala_class_Check',
+            'Scala_class_from_makebusinessdataframes'
+        ];
+    },
 
-        function linkToolTip(d) {
-            return "Source:" + d.source.id +
-                "<p/>Target: " + d.target.id +
-                "<p/>Size: " + d.size
-        },
+    function getTypeUse(graph) {
+        return ['load', 'save'];
+    },
 
-        function nodeToolTip(d) {
-            if (d.type === "dataframe") {
-                return "Name:" + d.id +
-                    "<p/>Group: " + d.group +
-                    "<p/>Size: " + d.weight
+    ['Gold', 'SeaGreen', 'Navy', 'Crimson', 'Black', 'DarkGray', 'SaddleBrown'],
+
+    d3.scaleOrdinal(["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec", "#f2f2f2"]),
+
+    function getColorChoice(typeNoeud, typeUse, colorn, colorl) {
+        return function(d) {
+            if (typeNoeud.includes(d)) {
+                var color = colorn[typeNoeud.indexOf(d)]
+            } else if (typeUse.includes(d)) {
+                var color = colorl(typeUse.indexOf(d))
             } else {
-                return "Name:" + d.id +
-                    "<p/>Group: " + d.group
+                var color = 'black'
             }
-        },
+            return color
+        }
+    },
 
-        function getRadiusFunction(graph) {
-            return function(d) {
-                if (d.type === "dataframe") {
-                    d.weight = graph.links.filter(function(l) {
-                        return (l.source.id === d.id || l.target.id === d.id)
-                    }).map(link => link.size)[0]
-                } else {
-                    d.weight = 1000
-                }
-                const minRadius = 6;
+    function getNodeColor(colorChoice) {
+        return function(d) {
+            return colorChoice(d.group)
+        };
+    },
 
-                return minRadius + Math.log10(d.weight) / Math.log10(5);
+    function getLinkColor(colorChoice) {
+        return function(d) {
+            return colorChoice(d.use)
+        };
+    },
+
+    function linkToolTip(d) {
+        return "Source:" + d.source.id +
+            "<p/>Target: " + d.target.id +
+            "<p/>Size: " + d.size
+    },
+
+    function nodeToolTip(d) {
+        if (d.type === "dataframe") {
+            return "Name:" + d.id +
+                "<p/>Group: " + d.group +
+                "<p/>Size: " + d.weight
+        } else {
+            return "Name:" + d.id +
+                "<p/>Group: " + d.group
+        }
+    },
+
+    function getRadiusFunction(graph) {
+        return function(d) {
+            if (d.type === "dataframe") {
+                d.weight = graph.links.filter(function(l) {
+                    return (l.source.id === d.id || l.target.id === d.id)
+                }).map(link => link.size)[0]
+            } else {
+                d.weight = 1000
             }
+            const minRadius = 6;
 
-        },
+            return minRadius + Math.log10(d.weight) / Math.log10(5);
+        }
 
-        true
-    )
+    },
 
-    submoduleGraphOptions = new options(
+    true
+)
 
-        function getTypeNoeud(graph) {
-            const modules = [];
-            for (let i = 0; i < graph.nodes.length; i++) {
-                modules.push(graph.nodes[i].module)
-            };
+submoduleGraphOptions = new options(
 
-            const typeNoeud = Array.from(new Set(modules));
-            console.log(typeNoeud)
-            return typeNoeud
-        },
+    function getTypeNoeud(graph) {
+        const modules = [];
+        for (let i = 0; i < graph.nodes.length; i++) {
+            modules.push(graph.nodes[i].module)
+        };
 
-        function getTypeUse(graph) {
+        const typeNoeud = Array.from(new Set(modules));
+        console.log(typeNoeud)
+        return typeNoeud
+    },
 
-        },
-        
-        d3.scaleOrdinal(d3.schemeCategory10),
-        
-        [],
+    function getTypeUse(graph) {
 
-        function getColorChoice(typeNoeud, typeUse) {
-            return function(d) {
-                return colorn(typeNoeud.indexOf(d))
-            };
-        },
+    },
 
-        function getNodeColor(colorChoice) {
-            return function(d) {
-                return colorChoice(d.module)
-            };
-        },
+    d3.scaleOrdinal(d3.schemeCategory10),
 
-        function getLinkColor() {
-            return function(d) {
-                return 'rgba(218, 145, 10, 0.686)'
-            };
-        },
+    [],
 
-        function linkToolTip(d) {
-            return "Source:" + d.source.id +
-                "<p/>Target:" + d.target.id
-        },
+    function getColorChoice(typeNoeud, typeUse, colorn, colorl) {
+        return function(d) {
+            return colorn(typeNoeud.indexOf(d))
+        };
+    },
 
-        function nodeToolTip(d) {
-            return "Module:" + d.module +
-                "<p/>Submodule:" + d.submodule
-        },
+    function getNodeColor(colorChoice) {
+        return function(d) {
+            return colorChoice(d.module)
+        };
+    },
 
-        function getRadiusFunction(graph) {
-            return function(d) {
-                return 8
-            }
+    function getLinkColor() {
+        return function(d) {
+            return 'rgba(218, 145, 10, 0.686)'
+        };
+    },
 
-        },
+    function linkToolTip(d) {
+        return "Source:" + d.source.id +
+            "<p/>Target:" + d.target.id
+    },
 
-        false
-    )
+    function nodeToolTip(d) {
+        return "Module:" + d.module +
+            "<p/>Submodule:" + d.submodule
+    },
+
+    function getRadiusFunction(graph) {
+        return function(d) {
+            return 8
+        }
+
+    },
+
+    false
+)
