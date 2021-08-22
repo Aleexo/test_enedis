@@ -273,7 +273,7 @@ function createGraphFrom(pathJson, options) {
 
 }
 
-function getPathAndTitle(fileName) {
+function getPath_Title_Options(fileName) {
     const splitName = fileName.substring(0, fileName.lastIndexOf(".")).split("_")
     console.log(splitName)
 
