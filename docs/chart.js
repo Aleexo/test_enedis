@@ -270,3 +270,42 @@ function createGraphFrom(cheminJson, getTypeNoeud, getTypeUse, getColorChoice, g
     });
 
 }
+
+function getPathAndTitle(fileName)  {
+        const splitName = fileName.substring(0, fileName.lastIndexOf(".")).split("_")
+        console.log(splitName)
+
+        const graphType = splitName[0]
+        const module = splitName[1]
+
+        switch (module) {
+            case "Overall":
+                document.getElementById("sous-titre").innerHTML = ""
+                var pathJson = `Overall/${nomFichierJson}`
+                break
+    
+            default:
+                document.getElementById("sous-titre").innerHTML = `Module : ${module}`
+                var pathJson = `ByModule/${module}/${nomFichierJson}`
+        }
+    
+        switch (graphType) {
+            case "dfGraph":
+                document.getElementById("titre").innerHTML = "Graphe de dépendances des Dataframes";
+                break
+    
+            case "stepGraph":
+                document.getElementById("titre").innerHTML = "Graphe de dépendances des Steps";
+                break
+    
+            case "stepAndDfGraph":
+                document.getElementById("titre").innerHTML = "Graphe de dépendances entre Steps et Dataframes";
+                break
+    
+            case "submoduleGraph":
+                document.getElementById("titre").innerHTML = "Graphe de dépendances des Sous-Modules";
+                break
+        }
+
+        return pathJson
+    }
