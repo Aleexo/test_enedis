@@ -438,7 +438,7 @@ const stepGraphOptions = new options(
 
     function getRadiusFunction(graph) {
         return function(d) {
-            return 8
+            return 14
         }
 
     },
