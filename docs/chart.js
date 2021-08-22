@@ -26,7 +26,7 @@ function createGraphFrom(pathJson, options) {
             .force("link", d3.forceLink().id(function(d) {
                 return d.id;
             }).distance(80).strength(1.5))
-            .force("charge", d3.forceManyBody().strength(-500)) //Charge strength is here
+            .force("charge", d3.forceManyBody().strength(-800)) //Charge strength is here
             .force("center", d3.forceCenter(width / 2, height / 2));
 
 
