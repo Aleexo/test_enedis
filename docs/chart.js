@@ -1,4 +1,4 @@
-function createGraphFrom(nomFichierJson, getTypeNoeud, getTypeUse, getColorChoice, getNodeColor, getLinkColor, linkToolTip, nodeToolTip, needLabel, getRadiusFunction) {
+function createGraphFrom(cheminJson, getTypeNoeud, getTypeUse, getColorChoice, getNodeColor, getLinkColor, linkToolTip, nodeToolTip, needLabel, getRadiusFunction) {
 
     const tooltip = d3.select("body")
         .append("div")
@@ -9,7 +9,7 @@ function createGraphFrom(nomFichierJson, getTypeNoeud, getTypeUse, getColorChoic
         width = +svg.attr("width"),
         height = +svg.attr("height");
 
-    d3.json(`https://raw.githubusercontent.com/Aleexo/test_enedis/main/json/${nomFichierJson}`, function(error, graph) {
+    d3.json(`https://raw.githubusercontent.com/Aleexo/test_enedis/main/json/${cheminJson}`, function(error, graph) {
 
         if (error) throw error;
 
