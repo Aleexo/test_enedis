@@ -579,7 +579,7 @@ submoduleGraphOptions = new options(
 
     function getRadiusFunction(graph) {
         return function(d) {
-            return 20
+            return 14
         }
 
     },
