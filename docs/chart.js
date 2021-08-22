@@ -309,3 +309,245 @@ function getPathAndTitle(fileName)  {
 
         return pathJson
     }
+
+
+const dfGraphOptions = new options(
+
+        function getTypeNoeud(graph) {
+            const submodules = [];
+            for (let i = 0; i < graph.nodes.length; i++) {
+                submodules.push(graph.nodes[i].submodule)
+            };
+
+            const typeNoeud = Array.from(new Set(submodules));
+            console.log(typeNoeud)
+            return typeNoeud
+        },
+        function getTypeUse(graph) {
+
+        },
+
+        function getColorChoice(typeNoeud, typeUse) {
+            return function(d) {
+                return colorn(typeNoeud.indexOf(d))
+            };
+        },
+
+        function getNodeColor(colorChoice) {
+            return function(d) {
+                return colorChoice(d.submodule)
+            };
+        },
+
+        function getLinkColor() {
+            return function(d) {
+                return 'rgba(218, 145, 10, 0.686)'
+            };
+        },
+
+        function linkToolTip(d) {
+            return "Source:" + d.source.id +
+                "<p/>Target:" + d.target.id
+        },
+
+        function nodeToolTip(d) {
+            return "Name:" + d.id +
+                "<p/>Submodule:" + d.submodule
+        },
+
+        function getRadiusFunction(graph) {
+            return function(d) {
+                return 8
+            }
+
+        },
+
+        false)
+
+    const stepGraphOptions = new options(
+
+        function getTypeNoeud(graph) {
+            const submodules = [];
+            for (let i = 0; i < graph.nodes.length; i++) {
+                submodules.push(graph.nodes[i].submodule)
+            };
+
+            const typeNoeud = Array.from(new Set(submodules));
+            console.log(typeNoeud)
+            return typeNoeud
+        },
+
+        function getTypeUse(graph) {
+
+        },
+
+        function getColorChoice(typeNoeud, typeUse) {
+            return function(d) {
+                return colorn(typeNoeud.indexOf(d))
+            };
+        },
+
+        function getNodeColor(colorChoice) {
+            return function(d) {
+                return colorChoice(d.submodule)
+            };
+        },
+
+        function getLinkColor() {
+            return function(d) {
+                return 'rgba(218, 145, 10, 0.686)'
+            };
+        },
+
+        function linkToolTip(d) {
+            return "Source:" + d.source.id +
+                "<p/>Target:" + d.target.id
+        },
+
+        function nodeToolTip(d) {
+            return "Name:" + d.id +
+                "<p/>Submodule:" + d.submodule
+        },
+
+        function getRadiusFunction(graph) {
+            return function(d) {
+                return 8
+            }
+
+        },
+
+        false
+    )
+
+    const stepAndDfGraphOptions = new options(
+        function getTypeNoeud(graph) {
+            return [
+                'FinalDataframeDescriptor',
+                'ImportDataframeDescriptor',
+                'WorkDataframeDescriptor',
+                'OutputDataframeDescriptor',
+                'Scala_class_Step',
+                'Scala_class_Check',
+                'Scala_class_from_makebusinessdataframes'
+            ];
+        },
+
+        function getTypeUse(graph) {
+            return ['load', 'save'];
+        },
+
+        function getColorChoice(typeNoeud, typeUse) {
+            return function(d) {
+                if (typeNoeud.includes(d)) {
+                    var color = colorn[typeNoeud.indexOf(d)]
+                } else if (typeUse.includes(d)) {
+                    var color = colorl(typeUse.indexOf(d))
+                } else {
+                    var color = 'black'
+                }
+                return color
+            }
+        },
+
+        function getNodeColor(colorChoice) {
+            return function(d) {
+                return colorChoice(d.group)
+            };
+        },
+
+        function getLinkColor(colorChoice) {
+            return function(d) {
+                return colorChoice(d.use)
+            };
+        },
+
+        function linkToolTip(d) {
+            return "Source:" + d.source.id +
+                "<p/>Target: " + d.target.id +
+                "<p/>Size: " + d.size
+        },
+
+        function nodeToolTip(d) {
+            if (d.type === "dataframe") {
+                return "Name:" + d.id +
+                    "<p/>Group: " + d.group +
+                    "<p/>Size: " + d.weight
+            } else {
+                return "Name:" + d.id +
+                    "<p/>Group: " + d.group
+            }
+        },
+
+        function getRadiusFunction(graph) {
+            return function(d) {
+                if (d.type === "dataframe") {
+                    d.weight = graph.links.filter(function(l) {
+                        return (l.source.id === d.id || l.target.id === d.id)
+                    }).map(link => link.size)[0]
+                } else {
+                    d.weight = 1000
+                }
+                const minRadius = 6;
+
+                return minRadius + Math.log10(d.weight) / Math.log10(5);
+            }
+
+        },
+
+        true
+    )
+
+    submoduleGraphOptions = new options(
+
+        function getTypeNoeud(graph) {
+            const modules = [];
+            for (let i = 0; i < graph.nodes.length; i++) {
+                modules.push(graph.nodes[i].module)
+            };
+
+            const typeNoeud = Array.from(new Set(modules));
+            console.log(typeNoeud)
+            return typeNoeud
+        },
+
+        function getTypeUse(graph) {
+
+        },
+
+        function getColorChoice(typeNoeud, typeUse) {
+            return function(d) {
+                return colorn(typeNoeud.indexOf(d))
+            };
+        },
+
+        function getNodeColor(colorChoice) {
+            return function(d) {
+                return colorChoice(d.module)
+            };
+        },
+
+        function getLinkColor() {
+            return function(d) {
+                return 'rgba(218, 145, 10, 0.686)'
+            };
+        },
+
+        function linkToolTip(d) {
+            return "Source:" + d.source.id +
+                "<p/>Target:" + d.target.id
+        },
+
+        function nodeToolTip(d) {
+            return "Module:" + d.module +
+                "<p/>Submodule:" + d.submodule
+        },
+
+        function getRadiusFunction(graph) {
+            return function(d) {
+                return 8
+            }
+
+        },
+
+        false
+    )
