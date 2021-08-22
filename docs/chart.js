@@ -313,7 +313,7 @@ function getPathAndTitle(fileName) {
             break
     }
 
-    return (pathJson, options)
+    return [pathJson, options]
 }
 
 function options(getTypeNoeud, getTypeUse, colorn, colorl, getColorChoice, getNodeColor, getLinkColor, linkToolTip, nodeToolTip, getRadiusFunction, needLabel) {
