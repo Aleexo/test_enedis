@@ -282,33 +282,37 @@ function getPath_Title_Options(fileName) {
 
     switch (module) {
         case "Overall":
-            document.getElementById("sous-titre").innerHTML = ""
+            document.getElementById("h2").innerHTML = ""
             var pathJson = `Overall/${nameJsonFile}`
             break
 
         default:
-            document.getElementById("sous-titre").innerHTML = `Module : ${module}`
+            document.getElementById("h2").innerHTML = `Module : ${module}`
             var pathJson = `ByModule/${module}/${nameJsonFile}`
     }
 
     switch (graphType) {
         case "dfGraph":
-            document.getElementById("titre").innerHTML = "Graphe de dépendances des Dataframes";
+            document.getElementById("h1").innerHTML = "Graphe de dépendances des Dataframes"
+            document.getElementById("title").innerHTML = "Df Graph"
             var options = dfGraphOptions
             break
 
         case "stepGraph":
-            document.getElementById("titre").innerHTML = "Graphe de dépendances des Steps";
+            document.getElementById("h1").innerHTML = "Graphe de dépendances des Steps"
+            document.getElementById("title").innerHTML = "Step Graph"
             var options = stepGraphOptions
             break
 
         case "stepAndDfGraph":
-            document.getElementById("titre").innerHTML = "Graphe de dépendances entre Steps et Dataframes";
+            document.getElementById("h1").innerHTML = "Graphe de dépendances entre Steps et Dataframes"
+            document.getElementById("title").innerHTML = "Step & Df Graph"
             var options = stepAndDfGraphOptions
             break
 
         case "submoduleGraph":
-            document.getElementById("titre").innerHTML = "Graphe de dépendances des Sous-Modules";
+            document.getElementById("h1").innerHTML = "Graphe de dépendances des Sous-Modules"
+            document.getElementById("title").innerHTML = "SubModule Graph"
             var options = submoduleGraphOptions
             break
     }
