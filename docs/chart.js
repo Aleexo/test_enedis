@@ -1,4 +1,4 @@
-function createGraphFrom(cheminJson, options) {
+function createGraphFrom(pathJson, options) {
 
     const tooltip = d3.select("body")
         .append("div")
@@ -9,7 +9,7 @@ function createGraphFrom(cheminJson, options) {
         width = +svg.attr("width"),
         height = +svg.attr("height");
 
-    d3.json(`https://raw.githubusercontent.com/Aleexo/test_enedis/main/json/${cheminJson}`, function(error, graph) {
+    d3.json(`https://raw.githubusercontent.com/Aleexo/test_enedis/main/json/${pathJson}`, function(error, graph) {
 
         if (error) throw error;
 
@@ -283,12 +283,12 @@ function getPathAndTitle(fileName) {
     switch (module) {
         case "Overall":
             document.getElementById("sous-titre").innerHTML = ""
-            var pathJson = `Overall/${nomFichierJson}`
+            var pathJson = `Overall/${nameJsonFile}`
             break
 
         default:
             document.getElementById("sous-titre").innerHTML = `Module : ${module}`
-            var pathJson = `ByModule/${module}/${nomFichierJson}`
+            var pathJson = `ByModule/${module}/${nameJsonFile}`
     }
 
     switch (graphType) {
