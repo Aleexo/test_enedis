@@ -294,25 +294,21 @@ function getPath_Title_Options(fileName) {
     switch (graphType) {
         case "dfGraph":
             document.getElementById("h1").innerHTML = "Graphe de dépendances des Dataframes"
-            document.getElementById("title").innerHTML = "Df Graph"
             var options = dfGraphOptions
             break
 
         case "stepGraph":
             document.getElementById("h1").innerHTML = "Graphe de dépendances des Steps"
-            document.getElementById("title").innerHTML = "Step Graph"
             var options = stepGraphOptions
             break
 
         case "stepAndDfGraph":
             document.getElementById("h1").innerHTML = "Graphe de dépendances entre Steps et Dataframes"
-            document.getElementById("title").innerHTML = "Step & Df Graph"
             var options = stepAndDfGraphOptions
             break
 
         case "submoduleGraph":
             document.getElementById("h1").innerHTML = "Graphe de dépendances des Sous-Modules"
-            document.getElementById("title").innerHTML = "SubModule Graph"
             var options = submoduleGraphOptions
             break
     }
