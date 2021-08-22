@@ -12,9 +12,11 @@ function createGraphFrom(cheminJson, options) {
     d3.json(`https://raw.githubusercontent.com/Aleexo/test_enedis/main/json/${cheminJson}`, function(error, graph) {
 
         if (error) throw error;
-
+        
         const typeNoeud = options.getTypeNoeud(graph)
         const typeUse = options.getTypeUse(graph)
+        const colorn = options.colorn
+        const colorl = options.colorl
         const colorChoice = options.getColorChoice(typeNoeud, typeUse)
         const nodeColor = options.getNodeColor(colorChoice)
         const linkColor = options.getLinkColor(colorChoice)
@@ -310,9 +312,11 @@ function getPathAndTitle(fileName)  {
         return pathJson
     }
 
-function options(getTypeNoeud, getTypeUse, getColorChoice, getNodeColor, getLinkColor, linkToolTip, nodeToolTip, getRadiusFunction, needLabel) {
+function options(getTypeNoeud, getTypeUse, colorn, colorl, getColorChoice, getNodeColor, getLinkColor, linkToolTip, nodeToolTip, getRadiusFunction, needLabel) {
         this.getTypeNoeud = getTypeNoeud
         this.getTypeUse = getTypeUse
+        this.colorn = colorn
+        this.colorl = colorl
         this.getColorChoice = getColorChoice
         this.getNodeColor = getNodeColor
         this.getLinkColor = getLinkColor
@@ -337,6 +341,10 @@ const dfGraphOptions = new options(
         function getTypeUse(graph) {
 
         },
+    
+        d3.scaleOrdinal(d3.schemeCategory10),
+        
+        [],
 
         function getColorChoice(typeNoeud, typeUse) {
             return function(d) {
@@ -391,6 +399,10 @@ const dfGraphOptions = new options(
         function getTypeUse(graph) {
 
         },
+        
+        d3.scaleOrdinal(d3.schemeCategory10),
+        
+        [],
 
         function getColorChoice(typeNoeud, typeUse) {
             return function(d) {
@@ -446,6 +458,10 @@ const dfGraphOptions = new options(
         function getTypeUse(graph) {
             return ['load', 'save'];
         },
+        
+        ['Gold', 'SeaGreen', 'Navy', 'Crimson', 'Black', 'DarkGray', 'SaddleBrown'],
+        
+        d3.scaleOrdinal(["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec", "#f2f2f2"]),
 
         function getColorChoice(typeNoeud, typeUse) {
             return function(d) {
@@ -524,6 +540,10 @@ const dfGraphOptions = new options(
         function getTypeUse(graph) {
 
         },
+        
+        d3.scaleOrdinal(d3.schemeCategory10),
+        
+        [],
 
         function getColorChoice(typeNoeud, typeUse) {
             return function(d) {
