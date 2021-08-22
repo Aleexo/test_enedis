@@ -294,22 +294,26 @@ function getPathAndTitle(fileName) {
     switch (graphType) {
         case "dfGraph":
             document.getElementById("titre").innerHTML = "Graphe de dépendances des Dataframes";
+            var options = dfGraphOptions
             break
 
         case "stepGraph":
             document.getElementById("titre").innerHTML = "Graphe de dépendances des Steps";
+            var options = stepGraphOptions
             break
 
         case "stepAndDfGraph":
             document.getElementById("titre").innerHTML = "Graphe de dépendances entre Steps et Dataframes";
+            var options = stepAndDfGraphOptions
             break
 
         case "submoduleGraph":
             document.getElementById("titre").innerHTML = "Graphe de dépendances des Sous-Modules";
+            var options = submoduleGraphOptions
             break
     }
 
-    return pathJson
+    return (pathJson, options)
 }
 
 function options(getTypeNoeud, getTypeUse, colorn, colorl, getColorChoice, getNodeColor, getLinkColor, linkToolTip, nodeToolTip, getRadiusFunction, needLabel) {
