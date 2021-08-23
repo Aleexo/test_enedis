@@ -1,4 +1,4 @@
-function getPath_Title_Options(fileName) {
+function generateGraph(fileName) {
     const splitName = fileName.substring(0, fileName.lastIndexOf(".")).split("_")
     console.log(splitName)
 
@@ -38,5 +38,5 @@ function getPath_Title_Options(fileName) {
             break
     }
 
-    return [pathJson, options]
+    createGraphFrom(pathJson, options)
 }
