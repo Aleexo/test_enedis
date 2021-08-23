@@ -8,12 +8,12 @@ function generateGraph(fileName) {
     switch (module) {
         case "Overall":
             document.getElementById("h2").innerHTML = ""
-            var pathJson = `Overall/${nameJsonFile}`
+            var pathJson = `Overall/${fileName}`
             break
 
         default:
             document.getElementById("h2").innerHTML = `Module : ${module}`
-            var pathJson = `ByModule/${module}/${nameJsonFile}`
+            var pathJson = `ByModule/${module}/${fileName}`
     }
 
     switch (graphType) {
