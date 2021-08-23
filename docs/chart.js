@@ -111,7 +111,7 @@ function createGraphFrom(pathJson, options) {
                 return d.y;
             })
             .attr("r", radius)
-            .attr("fill", nodeColor)
+            .style("fill", nodeColor)
             .on('mouseover.tooltip', function(d) {
                 tooltip.transition()
                     .duration(300)
