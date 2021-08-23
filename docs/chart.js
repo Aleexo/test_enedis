@@ -100,7 +100,7 @@ function createGraphFrom(pathJson, options) {
         console.log(graph.links)
         console.log(graph.nodes)
         const node = svg.append("g")
-            .attr("module", "nodes")
+            .attr("class", "nodes")
             .selectAll("circle")
             .data(graph.nodes)
             .enter().append("circle")
