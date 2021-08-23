@@ -82,7 +82,7 @@ function createGraphFrom(pathJson, options) {
                 tooltip.transition()
                     .duration(300)
                     .style("opacity", 0.8);
-                tooltip.html(linkToolTip(d))
+                tooltip.html(options.linkToolTip(d))
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY + 10) + "px");
             })
