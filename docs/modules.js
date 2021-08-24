@@ -1,4 +1,5 @@
 modules = [
+    "overall",
     "auscultationhta",
     "cruecrise",
     "datapreparation.bdp",
