@@ -1,22 +1,22 @@
-function modules() {
-    this.auscultationhta = "auscultationhta"
-    this.cruecrise = "cruecrise"
-    this.datapreparation_bdp = "datapreparation.bdp"
-    this.datapreparation_bt = "datapreparation.bt"
-    this.datapreparation_cim = "datapreparation.cim"
-    this.datapreparation_cleaning = "datapreparation.cleaning"
-    this.datapreparation_flood = "datapreparation.flood"
-    this.datapreparation_hdr = "datapreparation.hdr"
-    this.datapreparation_hta = "datapreparation.hta"
-    this.datapreparation_htabt = "datapreparation.htabt"
-    this.datapreparation_incident = "datapreparation.incident"
-    this.datapreparation_land = "datapreparation.land"
-    this.datapreparation_weather = "datapreparation.weather"
-    this.monitoringtransfo = "monitoringtransfo"
-    this.previsioncanicule = "previsioncanicule"
-    this.recurringactivities = "recurringactivities"
-    this.renouvellementbt = "renouvellementbt"
-    this.renouvellementhta = "renouvellementhta"
-    this.stormimpactmodeling = "stormimpactmodeling"
-    this.suivicrue = "suivicrue"
-}
+modules = [
+    "auscultationhta",
+    "cruecrise",
+    "datapreparation.bdp",
+    "datapreparation.bt",
+    "datapreparation.cim",
+    "datapreparation.cleaning",
+    "datapreparation.flood",
+    "datapreparation.hdr",
+    "datapreparation.hta",
+    "datapreparation.htabt",
+    "datapreparation.incident",
+    "datapreparation.land",
+    "datapreparation.weather",
+    "monitoringtransfo",
+    "previsioncanicule",
+    "recurringactivities",
+    "renouvellementbt",
+    "renouvellementhta",
+    "stormimpactmodeling",
+    "suivicrue"
+]
