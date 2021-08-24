@@ -1,5 +1,5 @@
 modules = [
-    "overall",
+    "Overall",
     "auscultationhta",
     "cruecrise",
     "datapreparation.bdp",
@@ -21,3 +21,5 @@ modules = [
     "stormimpactmodeling",
     "suivicrue"
 ]
+
+graphTypes = ['dfGraph', 'stepGraph', 'stepAndDfGraph', 'submoduleGraph']
