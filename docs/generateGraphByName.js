@@ -7,33 +7,27 @@ function generateGraph(fileName) {
 
     switch (module) {
         case "Overall":
-            document.getElementById("h2").innerHTML = ""
             var pathJson = `Overall/${fileName}`
             break
 
         default:
-            document.getElementById("h2").innerHTML = `Module : ${module}`
             var pathJson = `ByModule/${module}/${fileName}`
     }
 
     switch (graphType) {
         case "dfGraph":
-            document.getElementById("h1").innerHTML = "Graphe de dépendances des Dataframes"
             var options = dfGraphOptions
             break
 
         case "stepGraph":
-            document.getElementById("h1").innerHTML = "Graphe de dépendances des Steps"
             var options = stepGraphOptions
             break
 
         case "stepAndDfGraph":
-            document.getElementById("h1").innerHTML = "Graphe de dépendances entre Steps et Dataframes"
             var options = stepAndDfGraphOptions
             break
 
         case "submoduleGraph":
-            document.getElementById("h1").innerHTML = "Graphe de dépendances des Sous-Modules"
             var options = submoduleGraphOptions
             break
     }
